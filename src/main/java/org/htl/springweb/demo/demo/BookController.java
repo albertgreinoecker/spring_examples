@@ -3,10 +3,13 @@ package org.htl.springweb.demo.demo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -38,6 +41,19 @@ public class BookController {
 			}
 		}
 		return String.format("%s nicht gefunden!", isbn);
+	}
+
+	@RequestMapping(value = "/book_by_isbn_json", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public String bookByIsbnJSON(@RequestParam String isbn) {
+		if (isbn == null || isbn.length() == 0)
+			return "{\"Message\": \"Keine ISBN gesetzt\"}";
+		for (Book b : books) {
+			if (isbn.equals(b.getIsbn())) {
+				return new JSONObject(b) + "";
+			}
+		}
+		return "{\"Message\": \"nicht gefunden\"}";
 	}
 
 	@RequestMapping("/books")
