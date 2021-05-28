@@ -5,7 +5,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class BookController {
@@ -22,6 +25,19 @@ public class BookController {
 	public String getBook(Model model) {
 		model.addAttribute("book", new Book("ISB1234", "O'Brian", "Irischer Lebenslauf"));
 		return "books/single";
+	}
+
+	@GetMapping("/book_by_isbn")
+	@ResponseBody
+	public String bookByIsbn(@RequestParam String isbn) {
+		if (isbn == null || isbn.length() == 0)
+			return "Keine ISBN gesetzt";
+		for (Book b : books) {
+			if (isbn.equals(b.getIsbn())) {
+				return b + "";
+			}
+		}
+		return String.format("%s nicht gefunden!", isbn);
 	}
 
 	@RequestMapping("/books")
