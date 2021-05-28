@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<title>Ein erstes Spring Boot Demo</title>
+</head>
+<body>
+	<h2>Landing Page</h2>
+	<table>
+		<tr th:each="var : ${links.keySet()}">
+			<td th:text="${var}"></td>
+			<td><a th:href="${links.get(var)}"> link </a></td>
+		</tr>
+	</table>
+</body>
+</html>
