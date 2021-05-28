@@ -36,7 +36,11 @@ public class Book {
 	}
 
 	
-	
+	@Override
+	public boolean equals(Object obj) {
+		Book b = (Book)obj;
+		return isbn.equals(b.getIsbn());
+	}
 	
 	
 }
