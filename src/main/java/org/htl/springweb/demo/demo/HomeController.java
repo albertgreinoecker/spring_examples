@@ -15,7 +15,7 @@ public class HomeController {
 		links.put("Bücher", "books");
 	}
 
-	@GetMapping("/home")
+	@GetMapping("/")
 	public String home(Map<String, Object> model) {
 		model.put("links", links);
 		return "home";

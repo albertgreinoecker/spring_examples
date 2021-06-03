@@ -3,9 +3,21 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
 <title>Ein erstes Spring Boot Demo</title>
+<style>
+img
+{
+	width:20px;
+}
+</style>
 </head>
 <body>
-	<h2>Landing Page</h2>
+	<h2>
+		<img src="logo.png"/>
+		Landing Page
+		<img th:src="@{logo.png}"/>
+	</h2>
+	
+	
 	<table>
 		<tr th:each="var : ${links.keySet()}">
 			<td th:text="${var}"></td>
